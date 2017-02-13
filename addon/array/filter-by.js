@@ -1,23 +1,21 @@
-import computed from 'ember-computed';
-import { assert } from 'ember-metal/utils';
-import flattenKeys from 'ember-macro-helpers/flatten-keys';
-import getValue from 'ember-macro-helpers/get-value';
+import computed from 'ember-macro-helpers/computed';
+import createClassComputed from 'ember-macro-helpers/create-class-computed';
 
 const defaultValue = [];
 
-export default function(array, key, value) {
-  assert('The object key must be a string to properly watch the array for value changes.', typeof key === 'string');
-
-  let arrayKey = array;
-  if (typeof array === 'string') {
-    arrayKey += `.@each.${key}`;
+export default createClassComputed(
+  {
+    array: false,
+    key: true,
+    value: false
+  },
+  key => {
+    let suffix = key ? `@each.${key}` : '[]';
+    return computed(`array.${suffix}`, 'value', (array, value) => {
+      if (!array || !key) {
+        return defaultValue;
+      }
+      return array.filterBy(key, value);
+    });
   }
-
-  return computed(...flattenKeys([arrayKey, value]), function() {
-    let arrayValue = getValue(this, array);
-    if (!arrayValue) {
-      return defaultValue;
-    }
-    return arrayValue.filterBy(key, getValue(this, value));
-  }).readOnly();
-}
+);

@@ -24,10 +24,11 @@
   "dependencies": {
     "babel-plugin-fake-import-specifiers": "^1.0.0",
     "ember-cli-babel": "^5.1.7",
-    "ember-macro-helpers": "^0.9.0",
+    "ember-macro-helpers": "kellyselden/ember-macro-helpers#class-based-computed-property",
     "ember-string-ishtmlsafe-polyfill": "^1.0.0"
   },
   "devDependencies": {
+    "ember-classy-computed": "0.0.1",
     "ember-cli": "2.11.1",
     "ember-cli-dependency-checker": "^1.3.0",
     "ember-cli-htmlbars": "^1.1.1",
@@ -42,6 +43,7 @@
     "ember-resolver": "^2.0.3",
     "ember-sinon": "0.6.0",
     "ember-source": "~2.11.0",
+    "ember-weakmap": "2.0.0",
     "loader.js": "^4.0.10"
   },
   "engines": {
